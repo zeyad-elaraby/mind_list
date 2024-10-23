@@ -5,9 +5,8 @@ class AppColors {
   static Color blackColor = Color(0xFF383838);
   static Color whiteColor = Color(0xFFffffff);
   static Color greenColor = Color(0xFF61E757);
-  static Color redColor = Color(0xFFEC4B4B);
+  static Color errorColor = Color(0xFFEC4B4B);
   static Color greyColor = Color(0xFF9698A0);
-  // static Color deepBlueColor = Color(0xFF1E88E5);
   static Color backgroundLightColor = Color(0xFFE3F2FD);
   static Color backgroundDarkColor = Color(0xFF060E1E);
 

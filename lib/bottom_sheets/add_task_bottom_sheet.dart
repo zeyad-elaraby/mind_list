@@ -45,15 +45,20 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                     style: Theme.of(context).textTheme.labelSmall!,
                   ),
                   enabled: true,
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(35),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(35),
                       borderSide: BorderSide(color: AppColors.primaryColor)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(35),
-                      borderSide: BorderSide(color: AppColors.primaryColor))),
+                      borderSide: BorderSide(color: AppColors.primaryColor)),
+                  errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(35),
+                      borderSide: BorderSide(color: AppColors.errorColor)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(35),
+                    borderSide: BorderSide(color: AppColors.errorColor)),
+
+              ),
             ),
             SizedBox(
               height: 15,
@@ -73,15 +78,18 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                     style: Theme.of(context).textTheme.labelSmall!,
                   ),
                   enabled: true,
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(35),
-                      borderSide: BorderSide(color: AppColors.primaryColor)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(35),
                       borderSide: BorderSide(color: AppColors.primaryColor)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(35),
-                      borderSide: BorderSide(color: AppColors.primaryColor))),
+                      borderSide: BorderSide(color: AppColors.primaryColor)),
+                  errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(35),
+                      borderSide: BorderSide(color: AppColors.errorColor)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(35),
+                    borderSide: BorderSide(color: AppColors.errorColor)),),
             ),
             Text(
               "Select time",
