@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1085076191743",
+    "project_id": "mind-list-aa989",
+    "storage_bucket": "mind-list-aa989.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085076191743:android:44c9b1d076f6ebfecc4fca",
+        "android_client_info": {
+          "package_name": "com.example.mind_list"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSVtPwdqPN1KeLPwTe7rlTAxEVqWwis-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
