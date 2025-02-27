@@ -34,7 +34,6 @@ class MyThemeData {
         backgroundColor: AppColors.whiteColor,
         shadowColor: Colors.black12,
         shape: RoundedRectangleBorder(
-
           borderRadius: BorderRadius.only(topRight: Radius.circular(21), topLeft: Radius.circular(21)),
         )
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/tabs/settings_tab/settings_tab.dart';
-import 'package:mind_list/tabs/task_tab/tasks_list_tab.dart';
+import 'package:mind_list/tabs/task_tab/tasks_tab.dart';
 import 'bottom_sheets/add_task_bottom_sheet.dart';
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeScreen';
@@ -28,8 +28,15 @@ class _HomeScreenState extends State<HomeScreen> {
       body: tabs[bottomNavIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          addTaskBottomSheet();
-        },
+          showModalBottomSheet(
+            isScrollControlled: true,
+            
+            context: context,
+            builder: (context) => Padding(
+              padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: AddTaskBottomSheet(),
+            ),
+          );        },
         child: Icon(
           Icons.add,
           color: AppColors.whiteColor,
@@ -54,16 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  addTaskBottomSheet() {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.69),
-      context: context,
-      builder: (context) => AddTaskBottomSheet(),
-    );
-  }
+
   List<Widget> tabs = [
-    TasksListTab(),
+    TasksTab(),
     SettingsTab(),
   ];
 }
