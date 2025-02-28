@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/bottom_sheets/language_bottom_sheet.dart';
 import 'package:mind_list/bottom_sheets/theme_bottom_sheet.dart';
+import 'package:mind_list/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingsTab extends StatelessWidget {
   const SettingsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Column(
       children: [
         Container(
@@ -33,17 +36,25 @@ class SettingsTab extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
+                    color: themeProvider.mode == ThemeMode.light
+                        ? AppColors.whiteColor
+                        : AppColors.secondaryDarkColor,
                     border: Border.all(color: AppColors.primaryColor)),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("english"),
+                      Text(
+                        "english",
+                        style: TextStyle(color: AppColors.primaryColor),
+                      ),
                       IconButton(
                           onPressed: () {
-                            showModalBottomSheet(context: context, builder: (context) => LanguageBottomSheet(),);
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => LanguageBottomSheet(),
+                            );
                           },
                           icon: Icon(Icons.keyboard_arrow_down))
                     ],
@@ -62,17 +73,22 @@ class SettingsTab extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
+                    color: themeProvider.mode == ThemeMode.light
+                        ? AppColors.whiteColor
+                        : AppColors.secondaryDarkColor,
                     border: Border.all(color: AppColors.primaryColor)),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Light"),
+                      Text(themeProvider.mode==ThemeMode.light?"Light":"Dark",style: TextStyle(color: AppColors.primaryColor),
+                      ),
                       IconButton(
                           onPressed: () {
-                            showModalBottomSheet(context: context, builder: (context)=> ThemeBottomSheet());
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => ThemeBottomSheet());
                           },
                           icon: Icon(Icons.keyboard_arrow_down))
                     ],

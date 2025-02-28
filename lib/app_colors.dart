@@ -8,6 +8,9 @@ class AppColors {
   static Color errorColor = Color(0xFFEC4B4B);
   static Color greyColor = Color(0xFF9698A0);
   static Color backgroundLightColor = Color(0xFFE3F2FD);
+
+  //dark mode colors
+  static Color secondaryDarkColor= Color(0xFF141922);
   static Color backgroundDarkColor = Color(0xFF060E1E);
 
 }
