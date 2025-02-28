@@ -17,9 +17,10 @@ class MyThemeData {
             GoogleFonts.oxanium(color: AppColors.whiteColor,fontWeight: FontWeight.w700, fontSize: 20),
         titleSmall:
             GoogleFonts.oxanium(color: AppColors.whiteColor,fontWeight: FontWeight.w700, fontSize: 15),
-        labelLarge:GoogleFonts.poppins(color: AppColors.blackColor,fontWeight: FontWeight.w400, fontSize: 25),
-        labelMedium: GoogleFonts.poppins(color: AppColors.blackColor,fontWeight: FontWeight.w400, fontSize: 20),
-        labelSmall: GoogleFonts.poppins(color: AppColors.blackColor,fontWeight: FontWeight.w400, fontSize: 15),
+
+        labelLarge:GoogleFonts.poppins(color: AppColors.blackColor,fontWeight: FontWeight.w700, fontSize: 25),
+        labelMedium: GoogleFonts.poppins(color: AppColors.blackColor,fontWeight: FontWeight.w700, fontSize: 20),
+        labelSmall: GoogleFonts.poppins(color: AppColors.blackColor,fontWeight: FontWeight.w700, fontSize: 15),
 
         headlineLarge: GoogleFonts.lato(color: AppColors.blackColor,fontWeight: FontWeight.w400, fontSize: 25),
         headlineMedium: GoogleFonts.lato(color: AppColors.blackColor,fontWeight: FontWeight.w400, fontSize: 20),
