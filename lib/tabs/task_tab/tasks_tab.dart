@@ -2,21 +2,24 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
+import 'package:mind_list/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'task_item.dart';
 
 class TasksTab extends StatefulWidget {
-   TasksTab({super.key});
+  TasksTab({super.key});
 
   @override
   State<TasksTab> createState() => _TasksTabState();
 }
 
 class _TasksTabState extends State<TasksTab> {
-DateTime dateTime =DateTime.now();
+  DateTime dateTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Stack(
       children: [
         Container(
@@ -33,63 +36,84 @@ DateTime dateTime =DateTime.now();
             EasyDateTimeLine(
               initialDate: dateTime,
               onDateChange: (selectedDate) {
-                dateTime=selectedDate;
-                setState(() {
-
-                });
+                dateTime = selectedDate;
+                setState(() {});
               },
               headerProps: EasyHeaderProps(
                 monthPickerType: MonthPickerType.switcher,
                 dateFormatter: DateFormatter.fullDateDMY(),
-                selectedDateStyle:
-                TextStyle(color: AppColors.backgroundLightColor),
+                selectedDateStyle: TextStyle(
+                    color: themeProvider.mode == ThemeMode.light
+                        ? AppColors.backgroundLightColor
+                        : AppColors.whiteColor),
               ),
               dayProps: EasyDayProps(
-                dayStructure: DayStructure.dayStrDayNum,
-                activeDayStyle: DayStyle(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      gradient: SweepGradient(colors: [
-                        Color(0xFF5580E9),
-                        Color(0xFFE3F2FD),
-                      ])),
-                ),
-              ),
+                  dayStructure: DayStructure.dayStrDayNum,
+                  activeDayStyle: DayStyle(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        gradient: SweepGradient(colors: [
+                          Color(0xFF5580E9),
+                          Color(0xFFE3F2FD),
+                        ])),
+                  ),
+                  todayStyle: DayStyle(
+                      dayNumStyle: TextStyle(
+                          color: themeProvider.mode == ThemeMode.light
+                              ? AppColors.primaryColor
+                              : AppColors.whiteColor)),
+                  inactiveDayStyle: DayStyle(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: themeProvider.mode == ThemeMode.light
+                                  ? AppColors.blackColor
+                                  : AppColors.whiteColor),
+                          borderRadius: BorderRadius.circular(10)),
+                      dayNumStyle: TextStyle(
+                          color: themeProvider.mode == ThemeMode.light
+                              ? AppColors.blackColor
+                              : AppColors.whiteColor),
+                      dayStrStyle: TextStyle(
+                          color: themeProvider.mode == ThemeMode.light
+                              ? AppColors.blackColor
+                              : AppColors.whiteColor))),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             StreamBuilder(
               stream: FirebaseFunctions.getTask(dateTime),
-              builder: (BuildContext context,  snapshot) {
-
-                if(snapshot.connectionState==ConnectionState.waiting){
-                  return Center(child: CircularProgressIndicator(),);
+              builder: (BuildContext context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-                if(snapshot.hasError){
+                if (snapshot.hasError) {
                   return Column(
-                    children: [
-                      Center(child: Text("something went wrong "))
-                    ],
+                    children: [Center(child: Text("something went wrong "))],
                   );
                 }
 
-                var tasks=snapshot.data?.docs.map((e)=>e.data()).toList();
+                var tasks = snapshot.data?.docs.map((e) => e.data()).toList();
 
-                if(tasks?.isEmpty??true){
+                if (tasks?.isEmpty ?? true) {
                   return Center(child: Text("no tasks"));
                 }
 
-                return  Expanded(
+                return Expanded(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: ListView.separated(
-
-                        itemBuilder: (context, index) => TaskItem(model: tasks[index]),
-                        separatorBuilder: (BuildContext context, int index) => SizedBox(
-                          height: 10,
-                        ),
-                        itemCount: tasks!.length,
-                      ),
-                    ));
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: ListView.separated(
+                    itemBuilder: (context, index) =>
+                        TaskItem(model: tasks[index]),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        SizedBox(
+                      height: 10,
+                    ),
+                    itemCount: tasks!.length,
+                  ),
+                ));
               },
             )
           ],
