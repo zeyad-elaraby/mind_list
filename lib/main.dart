@@ -11,12 +11,13 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
+  ThemeProvider themeProvider =ThemeProvider();
+ await  themeProvider.getTheme();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(ChangeNotifierProvider(
-      create: (BuildContext context) => ThemeProvider(),
+      create: (BuildContext context) => themeProvider,
       child: EasyLocalization(
           saveLocale: true,
           supportedLocales: [Locale("en"), Locale("ar")],
