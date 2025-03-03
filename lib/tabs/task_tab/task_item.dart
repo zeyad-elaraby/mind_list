@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mind_list/app_colors.dart';
@@ -13,7 +14,7 @@ class TaskItem extends StatelessWidget {
     DateTime taskDate = DateTime.fromMillisecondsSinceEpoch(model.date);
     return Slidable(
       startActionPane:
-      ActionPane(extentRatio: 0.4, motion: DrawerMotion(), children: [
+          ActionPane(extentRatio: 0.4, motion: DrawerMotion(), children: [
         Theme(
           data: ThemeData(
               textTheme: TextTheme(bodySmall: TextStyle(fontSize: 12))),
@@ -24,19 +25,23 @@ class TaskItem extends StatelessWidget {
             icon: Icons.delete,
             label: "delete",
             backgroundColor: Colors.red,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20)),
+            borderRadius: context.locale == Locale("en")
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20))
+                : BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
           ),
         ),
       ]),
       endActionPane:
-      ActionPane(extentRatio: 0.4, motion: DrawerMotion(), children: [
+          ActionPane(extentRatio: 0.4, motion: DrawerMotion(), children: [
         Theme(
           data: ThemeData(
             textTheme: TextTheme(
               bodySmall:
-              TextStyle(fontSize: 12), // Adjust this to a smaller size
+                  TextStyle(fontSize: 12), // Adjust this to a smaller size
             ),
           ),
           child: SlidableAction(
@@ -47,16 +52,21 @@ class TaskItem extends StatelessWidget {
             icon: Icons.edit,
             label: "edit",
             backgroundColor: Colors.blue,
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20)),
+            borderRadius: context.locale == Locale("en")
+                ? BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20))
+                : BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20)),
           ),
         ),
       ]),
       child: Container(
         height: 100,
         decoration: BoxDecoration(
-            color: AppColors.whiteColor, borderRadius: BorderRadius.circular(15)),
+            color: AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
@@ -72,7 +82,9 @@ class TaskItem extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: context.locale == Locale("en")
+                      ? EdgeInsets.only(left: 20)
+                      : EdgeInsets.only(right: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -85,9 +97,9 @@ class TaskItem extends StatelessWidget {
                             .textTheme
                             .labelMedium!
                             .copyWith(
-                            color: model.isDone == true
-                                ? AppColors.greenColor
-                                : AppColors.primaryColor),
+                                color: model.isDone == true
+                                    ? AppColors.greenColor
+                                    : AppColors.primaryColor),
                       ),
                       Text(
                         model.description,
@@ -111,40 +123,39 @@ class TaskItem extends StatelessWidget {
                   ),
                 ),
               ),
-              // Spacer(),
               model.isDone == true
                   ? InkWell(
-                  onTap: () {
-                    model.isDone = false;
-                    FirebaseFunctions.updateTask(model);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 10),
-                    child: Text(
-                      "Done",
-                      style: TextStyle(color: AppColors.greenColor),
-                    ),
-                  ))
+                      onTap: () {
+                        model.isDone = false;
+                        FirebaseFunctions.updateTask(model);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Text(
+                          "Done",
+                          style: TextStyle(color: AppColors.greenColor),
+                        ),
+                      ))
                   : Padding(
-                padding: EdgeInsets.only(right: 10),
-                child: ElevatedButton(
-                  onPressed: () {
-                    model.isDone = true;
-                    FirebaseFunctions.updateTask(model);
-                  },
-                  child: Icon(
-                    Icons.check,
-                    color: AppColors.whiteColor,
-                    size: 40,
-                  ),
-                  style: ButtonStyle(
-                      shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      backgroundColor: WidgetStatePropertyAll(
-                          AppColors.primaryColor)),
-                ),
-              )
+                      padding: EdgeInsets.only(right: 10),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          model.isDone = true;
+                          FirebaseFunctions.updateTask(model);
+                        },
+                        child: Icon(
+                          Icons.check,
+                          color: AppColors.whiteColor,
+                          size: 40,
+                        ),
+                        style: ButtonStyle(
+                            shape: WidgetStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            backgroundColor:
+                                WidgetStatePropertyAll(AppColors.primaryColor)),
+                      ),
+                    )
             ],
           ),
         ),

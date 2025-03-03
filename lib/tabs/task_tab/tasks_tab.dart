@@ -1,4 +1,5 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
@@ -34,6 +35,7 @@ class _TasksTabState extends State<TasksTab> {
         Column(
           children: [
             EasyDateTimeLine(
+              locale: context.locale.toString(),
               initialDate: dateTime,
               onDateChange: (selectedDate) {
                 dateTime = selectedDate;
@@ -98,7 +100,7 @@ class _TasksTabState extends State<TasksTab> {
                 var tasks = snapshot.data?.docs.map((e) => e.data()).toList();
 
                 if (tasks?.isEmpty ?? true) {
-                  return Center(child: Text("no tasks"));
+                  return Center(child: Text("no_tasks".tr()));
                 }
 
                 return Expanded(

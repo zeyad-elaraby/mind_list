@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/firebase_options.dart';
 import 'package:mind_list/home_screen.dart';
@@ -9,11 +10,18 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(ChangeNotifierProvider(
-      create: (BuildContext context) => ThemeProvider(), child: MyApp()));
+      create: (BuildContext context) => ThemeProvider(),
+      child: EasyLocalization(
+          saveLocale: true,
+          supportedLocales: [Locale("en"), Locale("ar")],
+          path: 'assets/translations',
+          child: MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,6 +29,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: MyThemeData.lightTheme,
       themeMode: themeProvider.mode,
       darkTheme: MyThemeData.darkTheme,

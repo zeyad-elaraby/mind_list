@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
@@ -29,7 +30,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             children: [
               Center(
                 child: Text(
-                  "Add new Task",
+                  "add_new_task".tr(),
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                         color: AppColors.primaryColor,
                       ),
@@ -41,7 +42,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "enter task title";
+                    return "you_must_enter_task_title".tr();
                   }
                 },
                 controller: titleController,
@@ -49,7 +50,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 cursorColor: AppColors.primaryColor,
                 decoration: InputDecoration(
                   label: Text(
-                    " enter Task title",
+                    "task_title".tr(),
                     style: Theme.of(context).textTheme.labelSmall!,
                   ),
                   enabled: true,
@@ -73,7 +74,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "you must enter task description";
+                    return "you_must_enter_task_description".tr();
                   }
                 },
                 controller: descriptionController,
@@ -82,7 +83,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 cursorColor: AppColors.primaryColor,
                 decoration: InputDecoration(
                   label: Text(
-                    "Task description",
+                    "task_description".tr(),
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                   enabled: true,
@@ -101,7 +102,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 ),
               ),
               Text(
-                "Select time",
+                "select_time".tr(),
                 textAlign: TextAlign.start,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
