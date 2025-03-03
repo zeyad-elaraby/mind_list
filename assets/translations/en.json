@@ -1,0 +1,18 @@
+{
+  "language": "Language",
+  "mode": "Mode",
+  "light": "Light",
+  "dark": "Dark",
+  "no_tasks": "No Tasks",
+  "add_new_task": "Add New Task",
+  "task_title": "Task Title",
+  "you_must_enter_task_title": "You Must Enter Task Title",
+  "you_must_enter_task_description": "You Must Enter Task Description",
+  "task_description": "Task Description",
+  "select_time": "Select Time",
+  "edit_screen": "Edit Screen",
+  "edit_task": "Edit Task",
+  "enter_task_title": "Enter Task Title",
+  "enter_task_description": "Enter Task Description"
+
+}

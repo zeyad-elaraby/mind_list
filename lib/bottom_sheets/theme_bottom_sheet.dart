@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/providers/theme_provider.dart';
@@ -17,12 +18,13 @@ class ThemeBottomSheet extends StatelessWidget {
           InkWell(
             onTap: () {
               themeProvider.changeTheme(ThemeMode.light);
+              Navigator.pop(context);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Light",
+                  "light".tr(),
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: themeProvider.mode == ThemeMode.light
                           ? AppColors.primaryColor
@@ -43,12 +45,13 @@ class ThemeBottomSheet extends StatelessWidget {
           InkWell(
             onTap: () {
               themeProvider.changeTheme(ThemeMode.dark);
+              Navigator.pop(context);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Dark",
+                  "dark".tr(),
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: themeProvider.mode == ThemeMode.light
                           ? AppColors.blackColor

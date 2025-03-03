@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/bottom_sheets/language_bottom_sheet.dart';
@@ -28,7 +29,7 @@ class SettingsTab extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Text(
-                "Language",
+                "language".tr(),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
@@ -46,7 +47,7 @@ class SettingsTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "english",
+                        context.locale == Locale("en") ? "english" : "عربي",
                         style: TextStyle(color: AppColors.primaryColor),
                       ),
                       IconButton(
@@ -65,7 +66,7 @@ class SettingsTab extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Text(
-                "Mode",
+                "mode".tr(),
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
@@ -82,7 +83,11 @@ class SettingsTab extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(themeProvider.mode==ThemeMode.light?"Light":"Dark",style: TextStyle(color: AppColors.primaryColor),
+                      Text(
+                        themeProvider.mode == ThemeMode.light
+                            ? "light".tr()
+                            : "dark".tr(),
+                        style: TextStyle(color: AppColors.primaryColor),
                       ),
                       IconButton(
                           onPressed: () {

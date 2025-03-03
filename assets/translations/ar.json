@@ -1,0 +1,17 @@
+{
+  "language": "اللغه",
+  "mode": "الوضع",
+  "light": "نهاري",
+  "dark": "ليلي",
+  "no_tasks": "لا يوجد مهام",
+  "add_new_task": "اضف مهمه جديده",
+  "task_title": "عنوان المهمه",
+  "you_must_enter_task_title": "يجب ان تدخل عنوان المهمه",
+  "you_must_enter_task_description": "يجب ان تدخل وصف المهمه",
+  "task_description": "وصف المهمه",
+  "select_time": "اختر وقت",
+  "edit_screen": "صفحه التعديل",
+  "edit_task": "تعديل المهمه",
+  "enter_task_title": "ادخل عنوان المهمه",
+  "enter_task_description": "ادخل وصف المهمه"
+}

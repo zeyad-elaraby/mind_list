@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
@@ -34,7 +35,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("edit screen"),
+          title: Text("edit_screen".tr()),
         ),
         body: Stack(
           children: [
@@ -55,7 +56,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          "Edit Task",
+                          "edit_task".tr(),
                           textAlign: TextAlign.center,
                         ),
                         Padding(
@@ -64,7 +65,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                           child: TextFormField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "enter task title";
+                                return "enter_task_title".tr();
                               }
                             },
                             controller: titleController,
@@ -72,7 +73,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                             cursorColor: AppColors.primaryColor,
                             decoration: InputDecoration(
                               label: Text(
-                                " enter Task title",
+                                "enter_task_title".tr(),
                                 style: Theme.of(context).textTheme.labelSmall!,
                               ),
                               enabled: true,
@@ -101,7 +102,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                           child: TextFormField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "enter task description";
+                                return "enter_task_description".tr();
                               }
                             },
                             controller: descriptionController,
@@ -109,7 +110,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                             cursorColor: AppColors.primaryColor,
                             decoration: InputDecoration(
                               label: Text(
-                                " enter Task description",
+                                "enter_task_description".tr(),
                                 style: Theme.of(context).textTheme.labelSmall!,
                               ),
                               enabled: true,
@@ -136,8 +137,8 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                           height: 15,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text("Select time"),
+                          padding: context.locale ==Locale("en")? EdgeInsets.only(left: 5):EdgeInsets.only(right: 5),
+                          child: Text("select_time".tr()),
                         ),
                         InkWell(
                             onTap: () {
