@@ -48,8 +48,6 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                     vertical: screenHeight * 0.02,
                     horizontal: screenWidth * 0.1),
                 child: Card(
-                  color: Colors.white,
-                  elevation: 20,
                   child: Form(
                     key: _formKey,
                     child: Column(
