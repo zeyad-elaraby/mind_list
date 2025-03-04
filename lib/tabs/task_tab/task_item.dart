@@ -4,13 +4,16 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
 import 'package:mind_list/firebase/task_model.dart';
+import 'package:mind_list/providers/theme_provider.dart';
 import 'package:mind_list/tabs/task_tab/edit_task_screen.dart';
+import 'package:provider/provider.dart';
 
 class TaskItem extends StatelessWidget {
   TaskItem({required this.model, super.key});
   TaskModel model;
   @override
   Widget build(BuildContext context) {
+  ThemeProvider _themeProvider=Provider.of<ThemeProvider>(context);
     DateTime taskDate = DateTime.fromMillisecondsSinceEpoch(model.date);
     return Slidable(
       startActionPane:
@@ -65,7 +68,7 @@ class TaskItem extends StatelessWidget {
       child: Container(
         height: 100,
         decoration: BoxDecoration(
-            color: AppColors.whiteColor,
+            color:_themeProvider.mode==ThemeMode.light? AppColors.whiteColor:AppColors.secondaryDarkColor,
             borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -112,7 +115,9 @@ class TaskItem extends StatelessWidget {
                           Icon(
                             Icons.calendar_month_outlined,
                             size: 20,
+                            color:_themeProvider.mode==ThemeMode.dark? AppColors.whiteColor:AppColors.secondaryDarkColor,
                           ),
+                          SizedBox(width: 5,),
                           Text(
                             "${taskDate.year}/${taskDate.month}/${taskDate.day}",
                             style: Theme.of(context).textTheme.bodySmall,

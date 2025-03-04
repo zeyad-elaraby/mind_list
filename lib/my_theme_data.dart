@@ -83,7 +83,13 @@ class MyThemeData {
         backgroundColor: Colors.transparent,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-      ));
+      ),
+      cardTheme: CardTheme(
+        color: AppColors.whiteColor,
+        elevation: 20,
+
+      )
+  );
 
   static ThemeData darkTheme = ThemeData(
       primaryColor: AppColors.primaryColor,
@@ -165,5 +171,12 @@ class MyThemeData {
         backgroundColor: Colors.transparent,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-      ));
+      ),
+
+  cardTheme: CardTheme(
+    color: AppColors.secondaryDarkColor,
+    elevation: 20,
+
+  )
+  );
 }
