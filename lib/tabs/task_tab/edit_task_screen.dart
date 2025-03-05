@@ -189,7 +189,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   void showCalendar() async {
     DateTime? chosenDate = await showDatePicker(
       context: context,
-      firstDate: DateTime.now(),
+      firstDate: selectedDate??DateTime.now(),
       lastDate: DateTime.now().add(
         Duration(days: 365),
       ),
