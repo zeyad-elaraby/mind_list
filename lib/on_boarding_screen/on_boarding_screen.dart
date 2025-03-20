@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
+import 'package:mind_list/bottom_sheets/language_bottom_sheet.dart';
 import 'package:mind_list/login_screen/login_screen.dart';
 import 'package:mind_list/signup_screen/signup_screen.dart';
 
@@ -40,7 +41,10 @@ class OnBoardingScreen extends StatelessWidget {
                       Navigator.pushNamed(context, LoginScreen.routeName);
                     },
                     child: Text("login".tr(),
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Colors.white)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall!
+                            .copyWith(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
@@ -48,7 +52,7 @@ class OnBoardingScreen extends StatelessWidget {
                             side: BorderSide(color: Colors.black)))),
                 ElevatedButton(
                     onPressed: () {
-                     Navigator.pushNamed(context, SignupScreen.routeName);
+                      Navigator.pushNamed(context, SignupScreen.routeName);
                     },
                     child: Text(
                       "sign_up".tr(),
@@ -61,7 +65,26 @@ class OnBoardingScreen extends StatelessWidget {
                         backgroundColor: AppColors.whiteColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: Colors.black))))
+                            side: BorderSide(color: Colors.black)))),
+                Padding(
+                  padding:  EdgeInsets.symmetric(vertical: height*0.05),
+                  child: InkWell(
+                    onTap: () => showModalBottomSheet(context: context, builder: (context) => LanguageBottomSheet(),),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                         context.locale==Locale("ar")? "عربي": "English",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: AppColors.blackColor),
+                        ),
+                        Icon(Icons.expand_more_sharp,)
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           )
