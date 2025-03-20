@@ -41,3 +41,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+# Ignore CMake build artifacts
+android/app/.cxx/**
+
+# Ignore specific temporary files
+android/app/.cxx/**/android_gradle_build.json
+android/app/.cxx/**/android_gradle_build_mini.json
+android/app/.cxx/**/configure_fingerprint.bin
+android/app/.cxx/**/hash_key.txt
+android/app/.cxx/**/metadata_generation_command.txt
+android/app/.cxx/**/prefab_config.json
+android/app/.cxx/**/index-*.json
+android/app/.cxx/**/codemodel-v2*
