@@ -35,6 +35,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
 
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text("edit_screen".tr()),
         ),
