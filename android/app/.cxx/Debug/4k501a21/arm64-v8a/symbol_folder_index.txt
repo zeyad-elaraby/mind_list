@@ -1,0 +1,1 @@
+D:\my_projects\flutter\mind_list\build\app\intermediates\cxx\Debug\4k501a21\obj\arm64-v8a

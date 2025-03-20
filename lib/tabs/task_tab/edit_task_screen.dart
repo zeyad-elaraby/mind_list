@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
@@ -178,6 +179,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
           date: DateUtils.dateOnly(selectedDate!).millisecondsSinceEpoch
           ,isDone: this.taskModel?.isDone??false,
         id: this.taskModel?.id??"",
+        userId: FirebaseAuth.instance.currentUser!.uid
 
       );
      await FirebaseFunctions.updateTask(taskModel);

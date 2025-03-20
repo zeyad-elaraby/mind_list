@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/bottom_sheets/language_bottom_sheet.dart';
 import 'package:mind_list/bottom_sheets/theme_bottom_sheet.dart';
+import 'package:mind_list/on_boarding_screen/on_boarding_screen.dart';
 import 'package:mind_list/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -100,10 +102,85 @@ class SettingsTab extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 50),
+                child: Column(
+                  children: [
+                    Text(
+                      "sign out",
+                    ),
+                    InkWell(
+                      onTap: () => confirmationDialog(context),
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/logout_image.png"))),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             )
           ],
         )
       ],
+    );
+  }
+
+  confirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.grey[900],
+        title: Text("confirm sign out",
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(color: Colors.white)),
+        content: const SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(
+                'Are you sure you want to sign out?',
+                style: TextStyle(color: Colors.white70),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "cancle",
+                    style: TextStyle(color: Colors.blue[300]),
+                  )),
+              TextButton(
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      OnBoardingScreen.routeName,
+                      (route) => false,
+                    );
+                  },
+                  child: Text(
+                    "sign out",
+                    style: TextStyle(color: Colors.red[300]),
+                  )),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
