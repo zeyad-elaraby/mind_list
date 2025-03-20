@@ -1,12 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:mind_list/firebase_options.dart';
+import 'package:mind_list/app_constans.dart';
+import 'package:mind_list/firebase/firebase_options.dart';
 import 'package:mind_list/home_screen.dart';
 import 'package:mind_list/my_theme_data.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mind_list/providers/auth_provider.dart';
 import 'package:mind_list/providers/theme_provider.dart';
+import 'package:mind_list/signup_screen/signup_screen.dart';
 import 'package:mind_list/tabs/task_tab/edit_task_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'login_screen/login_screen.dart';
+import 'on_boarding_screen/on_boarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +22,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-      create: (BuildContext context) => themeProvider,
+  runApp(MultiProvider(
+
+      providers: [
+        ChangeNotifierProvider(create: (context) => themeProvider,),
+        ChangeNotifierProvider(create: (context) => AuthenticationProvider(),),
+
+      ],
       child: EasyLocalization(
           saveLocale: true,
           supportedLocales: [Locale("en"), Locale("ar")],
@@ -29,7 +40,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
+    var authProvider=Provider.of<AuthenticationProvider>(context);
     return MaterialApp(
+      scaffoldMessengerKey:scaffoldMessengerKey,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
@@ -37,10 +50,13 @@ class MyApp extends StatelessWidget {
       themeMode: themeProvider.mode,
       darkTheme: MyThemeData.darkTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: authProvider.firebaseUser!=null?HomeScreen.routeName: OnBoardingScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         EditTaskScreen.routeName: (context) => EditTaskScreen(),
+        OnBoardingScreen.routeName:(context)=> OnBoardingScreen(),
+        SignupScreen.routeName: (context) => SignupScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
       },
     );
   }

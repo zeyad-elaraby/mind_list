@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mind_list/app_colors.dart';
+import 'package:mind_list/providers/auth_provider.dart';
 import 'package:mind_list/tabs/settings_tab/settings_tab.dart';
 import 'package:mind_list/tabs/task_tab/tasks_tab.dart';
+import 'package:provider/provider.dart';
 import 'bottom_sheets/add_task_bottom_sheet.dart';
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeScreen';
@@ -14,16 +18,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int bottomNavIndex = 0;
-
   @override
   Widget build(BuildContext context) {
+
+    var authProvider= Provider.of<AuthenticationProvider>(context);
+
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
-        title: Text(
-          "Mind List",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+        title: RichText(text: TextSpan(children: [
+          TextSpan(text: "hello ",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Color(0xFF191970)),),
+          TextSpan(text: authProvider.userModel?.name??"",style: Theme.of(context).textTheme.titleLarge!.copyWith(overflow: TextOverflow.ellipsis,),),
+
+
+        ])),
       ),
       body: tabs[bottomNavIndex],
       floatingActionButton: FloatingActionButton(

@@ -13,6 +13,24 @@
   "edit_screen": "Edit Screen",
   "edit_task": "Edit Task",
   "enter_task_title": "Enter Task Title",
-  "enter_task_description": "Enter Task Description"
+  "don’t_have_an_account?": "Don’t have an account?",
+  "register_now": " Register Now",
+  "login": "Login",
+  "forgot_password": "Forgot Password",
+  "password": "Password",
+  "you_must_enter_password": "You Must Enter Password",
+  "email": "Email",
+  "you_must_enter_email": "You Must Enter Email",
+  "welcome_back": "Welcome back! Glad \nto see you, Again!",
+  "hello_register_to_get_started": "Hello! Register to get \nstarted",
+  "user_name": "User Name",
+  "you_must_enter_user_name": "You Must Enter Your User Name",
+  "sign_up": "Sign Up",
+  "already_have_an_account?": "Already have an account?",
+  "login_now": " Login Now",
+  "phone": "Phone",
+  "age": "Age",
+  "you_must_enter_phone": "You Must Enter Your Phone",
+  "you_must_enter_age": "You Must Enter Age"
 
 }

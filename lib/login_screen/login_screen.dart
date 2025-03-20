@@ -1,0 +1,274 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mind_list/app_colors.dart';
+import 'package:mind_list/app_constans.dart';
+import 'package:mind_list/firebase/firebase_functions.dart';
+import 'package:mind_list/home_screen.dart';
+import 'package:mind_list/login_screen/login_screen.dart';
+import 'package:mind_list/on_boarding_screen/on_boarding_screen.dart';
+import 'package:mind_list/providers/auth_provider.dart';
+import 'package:mind_list/signup_screen/signup_screen.dart';
+import 'package:provider/provider.dart';
+
+class LoginScreen extends StatefulWidget {
+  LoginScreen({super.key});
+  static const String routeName = "loginScreen";
+
+  @override
+  State<LoginScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<LoginScreen> {
+  var formKey = GlobalKey<FormState>();
+
+  TextEditingController userNameController = TextEditingController();
+
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  bool obscureText = true;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppColors.whiteColor,
+      appBar: AppBar(
+        // title: Text("signup"),
+        backgroundColor: AppColors.whiteColor,
+        leading: InkWell(
+          onTap: () => Navigator.pushNamedAndRemoveUntil(context,OnBoardingScreen.routeName,(route) => false,),
+          child: Container(
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                border: Border.all(color: AppColors.lavenderBlue),
+                borderRadius: BorderRadius.circular(12),
+                shape: BoxShape.rectangle),
+            child: Icon(
+              Icons.navigate_before_rounded,
+              size: 30,
+            ),
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 22, vertical: 32),
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                "welcome_back".tr(),
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "you_must_enter_email".tr();
+                    }
+                  },
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: AppColors.blackColor),
+                  cursorColor: AppColors.primaryColor,
+                  decoration: InputDecoration(
+                    fillColor: AppColors.offWhite,
+                    filled: true,
+                    label: Text(
+                      "email".tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelSmall!
+                          .copyWith(color: Colors.grey),
+                    ),
+                    enabled: true,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.lavenderBlue)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.lavenderBlue)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.lavenderBlue)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.lavenderBlue)),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "you_must_enter_password".tr();
+                    }
+                  },
+                  obscureText: obscureText,
+                  controller: passwordController,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: AppColors.blackColor),
+                  cursorColor: AppColors.primaryColor,
+                  decoration: InputDecoration(
+                    // contentPadding: EdgeInsets.all(0),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        obscureText = !obscureText;
+                        setState(() {});
+                      },
+                      icon: obscureText == true
+                          ? Icon(Icons.visibility_off_outlined)
+                          : Icon(Icons.visibility),
+                      iconSize: 25,
+                      padding: EdgeInsets.all(0),
+                    ),
+                    fillColor: AppColors.offWhite,
+                    filled: true,
+                    label: Text(
+                      "password".tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelSmall!
+                          .copyWith(color: Colors.grey),
+                    ),
+                    enabled: true,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.lavenderBlue)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.lavenderBlue)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.lavenderBlue)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: AppColors.lavenderBlue)),
+                  ),
+                ),
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 10),
+              //   child: Text(
+              //     "Forgot Password?",
+              //     textAlign: TextAlign.end,
+              //     style: Theme.of(context)
+              //         .textTheme
+              //         .bodySmall!
+              //         .copyWith(color: AppColors.blackColor),
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 20),
+                child: ElevatedButton(
+                    onPressed: () {
+                      logIn(context);
+                    },
+                    child: Text("login".tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall!
+                            .copyWith(color: Colors.white)),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: BorderSide(color: Colors.black)))),
+              ),
+              Center(
+                child: InkWell(
+                  onTap: () =>
+                      Navigator.pushReplacementNamed(context, SignupScreen.routeName),
+                  child: RichText(
+                      text: TextSpan(children: [
+                    TextSpan(
+                        text: "don’t_have_an_account?".tr(),
+                        style: GoogleFonts.urbanist(
+                            color: AppColors.blackColor, fontSize: 17)),
+                    TextSpan(
+                        text: "register_now".tr(),
+                        style: GoogleFonts.urbanist(
+                            color: Color(0xFF35C2C1), fontSize: 17)),
+                  ])),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  logIn(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      FirebaseFunctions.loginInUser(
+          emailAddress: emailController.text,
+          password: passwordController.text,
+          onSuccess: (userData) {
+            var autProvider=Provider.of<AuthenticationProvider>(context, listen: false);
+            autProvider.initUser();
+            scaffoldMessengerKey.currentState?.showSnackBar(
+              SnackBar(
+                content: Text('login successfully'),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8),
+                        topLeft: Radius.circular(8))),
+
+                backgroundColor: Colors.green,
+                action: SnackBarAction(
+                  label: 'successful',
+                  textColor: AppColors.blackColor,
+                  onPressed: () {
+                    // Perform an action when the user presses "Undo"
+                    scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
+                    print('Undo pressed!');
+                  },
+                ),
+                duration: Duration(seconds: 3), // Optional: Set duration
+              ),
+            );
+            Navigator.pushNamedAndRemoveUntil(
+                context, HomeScreen.routeName, (route) => false,
+                arguments: userData);
+          },
+          onError: (String errorMessage) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                content: Text(errorMessage.toString()),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8),
+                        topLeft: Radius.circular(8))),
+
+                backgroundColor: Colors.red,
+                action: SnackBarAction(
+                  label: 'try again',
+                  textColor: AppColors.blackColor,
+                  onPressed: () {
+                    logIn(context);
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    print('Undo pressed!');
+                  },
+                ),
+                duration: Duration(seconds: 3), // Optional: Set duration
+              ),
+            );
+          });
+    }
+  }
+}
