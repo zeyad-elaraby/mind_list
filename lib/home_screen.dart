@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true,
       appBar: AppBar(
         title: RichText(text: TextSpan(children: [
-          TextSpan(text: "hello ",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Color(0xFF191970)),),
+          TextSpan(text: "hello".tr(),style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Color(0xFF191970)),),
           TextSpan(text: authProvider.userModel?.name??"",style: Theme.of(context).textTheme.titleLarge!.copyWith(overflow: TextOverflow.ellipsis,),),
 
 
