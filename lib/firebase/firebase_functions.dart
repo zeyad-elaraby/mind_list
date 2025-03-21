@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/firebase/task_model.dart';
@@ -91,12 +92,12 @@ class FirebaseFunctions {
       onSuccess();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        onError(e);
+        onError("weak_password".tr());
       } else if (e.code == 'email-already-in-use') {
-        onError(e.toString());
+        onError("email_already_in_use".tr());
       }
     } catch (e) {
-      onError(e.toString());
+      onError("an_error_occurred_Please_try_again".tr());
     }
   }
 
@@ -115,16 +116,16 @@ class FirebaseFunctions {
     } on FirebaseAuthException catch (e) {
       print("FirebaseAuthException: ${e.code} - ${e.message}");
       if (e.code == 'user-not-found') {
-        onError("user not found");
+        onError("user_not_found".tr());
       } else if (e.code == 'invalid-credential') {
-        onError("wrong email or password");
+        onError("wrong_email_or_password".tr());
       }else if (e.code == 'too-many-requests') {
-        onError("Too many failed attempts. Please try again later.");
+        onError("too_many_failed_attempts_Please_try_again_later".tr());
       }  else {
-        onError("An error occurred. Please try again.");
+        onError("an_error_occurred_Please_try_again".tr());
       }
     } catch (e) {
-      onError("An unexpected error occurred. Please try again.");
+      onError("an_error_occurred_Please_try_again".tr());
     }
   }
 }

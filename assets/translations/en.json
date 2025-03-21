@@ -31,6 +31,17 @@
   "phone": "Phone",
   "age": "Age",
   "you_must_enter_phone": "You Must Enter Your Phone",
-  "you_must_enter_age": "You Must Enter Age"
+  "you_must_enter_age": "You Must Enter Age",
+  "login_successfully": "Login successfully",
+  "hide":"Hide",
+  "try_again": "Try again",
+  "user_not_found": "User not found",
+  "wrong_email_or_password": "Wrong email or password",
+  "too_many_failed_attempts_Please_try_again_later": "Too many failed attempts. Please try again later.",
+  "an_error_occurred_Please_try_again": "An error occurred. Please try again.",
+  "account_created_successfully": "Account created successfully",
+  "weak_password": "Weak password",
+  "email_already_in_use": "Email already in use",
+  "hello": "Hello "
 
 }

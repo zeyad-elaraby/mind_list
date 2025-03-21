@@ -31,5 +31,17 @@
   "phone": "الهاتف",
   "age": "العمر",
   "you_must_enter_phone": "يجب ان تدخل هاتفك",
-  "you_must_enter_age": "يجب ان تدخل العمر"
+  "you_must_enter_age": "يجب ان تدخل العمر",
+  "login_successfully": "تم تسجيل الدخول بنجاح",
+  "hide": "اخفاء",
+  "try_again": "حاول ثانية",
+  "user_not_found": "المستخدم غير موجود",
+  "wrong_email_or_password": "خطأ في البريد او كلمه السر",
+  "too_many_failed_attempts_Please_try_again_later": "محاولات فاشلة كثيرة. يُرجى المحاولة لاحقًا",
+  "account_created_successfully": "تم انشاء الحساب بنجاح",
+  "an_error_occurred_Please_try_again": "حدث خطأ. يُرجى المحاولة مرة أخرى.",
+  "weak_password": "كلمه مرور ضعيفة",
+  "email_already_in_use": "هذا البريد مستخدم بالفعل",
+  "hello": "مرحبا "
+
 }

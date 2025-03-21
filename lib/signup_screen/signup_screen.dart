@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/app_constans.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
 import 'package:mind_list/login_screen/login_screen.dart';
+import 'package:mind_list/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../app_colors.dart';
 
@@ -308,7 +311,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         signUp();
                       },
                       child: Text("sign_up".tr(),
-                          style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Colors.white)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall!
+                              .copyWith(color: Colors.white)),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
@@ -351,7 +357,7 @@ class _SignupScreenState extends State<SignupScreen> {
           onSuccess: () {
             scaffoldMessengerKey.currentState?.showSnackBar(
               SnackBar(
-                content: Text('account_created_successfully'),
+                content: Text('account_created_successfully'.tr()),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(8),
@@ -359,13 +365,11 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 backgroundColor: Colors.green,
                 action: SnackBarAction(
-                  label: 'ok',
+                  label: 'hide'.tr(),
                   textColor: AppColors.blackColor,
-
                   onPressed: () {
                     // Perform an action when the user presses "Undo"
                     scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
-                    print('Undo pressed!');
                   },
                 ),
                 duration: Duration(seconds: 3), // Optional: Set duration
@@ -384,19 +388,16 @@ class _SignupScreenState extends State<SignupScreen> {
                 content: Text(error),
                 backgroundColor: Colors.red,
                 action: SnackBarAction(
-                  label: 'hide',
+                  label: 'hide'.tr(),
                   textColor: AppColors.blackColor,
                   onPressed: () {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    print('Undo pressed!');
                   },
                 ),
                 duration: Duration(seconds: 3), // Optional: Set duration
               ),
             );
           });
-      print(
-          "------------------------------done----------------------------------");
     }
   }
 }
