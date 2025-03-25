@@ -6,6 +6,7 @@ import 'package:mind_list/bottom_sheets/language_bottom_sheet.dart';
 import 'package:mind_list/bottom_sheets/theme_bottom_sheet.dart';
 import 'package:mind_list/on_boarding_screen/on_boarding_screen.dart';
 import 'package:mind_list/providers/theme_provider.dart';
+import 'package:mind_list/tabs/settings_tab/widgets/confirmation_dialog.dart';
 import 'package:provider/provider.dart';
 
 class SettingsTab extends StatelessWidget {
@@ -135,52 +136,22 @@ class SettingsTab extends StatelessWidget {
 
   confirmationDialog(BuildContext context) {
     showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.grey[900],
-        title: Text("confirm sign out",
-            style: Theme.of(context)
-                .textTheme
-                .labelMedium!
-                .copyWith(color: Colors.white)),
-        content: const SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text(
-                'Are you sure you want to sign out?',
-                style: TextStyle(color: Colors.white70),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          Row(
-            children: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    "cancle",
-                    style: TextStyle(color: Colors.blue[300]),
-                  )),
-              TextButton(
-                  onPressed: () {
-                    FirebaseAuth.instance.signOut();
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      OnBoardingScreen.routeName,
-                      (route) => false,
-                    );
-                  },
-                  child: Text(
-                    "sign out",
-                    style: TextStyle(color: Colors.red[300]),
-                  )),
-            ],
-          )
-        ],
-      ),
-    );
+        context: context,
+        builder: (context) => ConfirmationDialog(
+              title: "confirm sign out",
+              description: 'Are you sure you want to sign out?',
+              leftButtonText: "cancle",
+              leftButtonColor: Colors.blue[300]!,
+              rightButtonTex: "sign out",
+              rightButtonColor: Colors.red[300]!,
+              onConfirmed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  OnBoardingScreen.routeName,
+                  (route) => false,
+                );
+              },
+            ));
   }
 }
