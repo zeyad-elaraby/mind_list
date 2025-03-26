@@ -1,15 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/app_constans.dart';
+import 'package:mind_list/auth_screens/login_screen/login_screen.dart';
+import 'package:mind_list/auth_screens/widgets/auth_button.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
-import 'package:mind_list/login_screen/login_screen.dart';
-import 'package:mind_list/providers/auth_provider.dart';
-import 'package:provider/provider.dart';
 
-import '../app_colors.dart';
 
 class SignupScreen extends StatefulWidget {
   SignupScreen({super.key});
@@ -306,21 +303,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        signUp();
-                      },
-                      child: Text("sign_up".tr(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall!
-                              .copyWith(color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              side: BorderSide(color: Colors.black)))),
-                ),
+                 child: AuthenticationButton(
+                     buttonLabel: "sign_up".tr(),
+                     buttonLabelStyle: Theme.of(context)
+                         .textTheme
+                         .labelSmall!
+                         .copyWith(color: Colors.white),
+                     backGroundColor: Colors.black,
+                     borderColor: Colors.black,
+                     buttonFunction: (){
+                       signUp();
+                     })),
                 Center(
                   child: InkWell(
                     onTap: () =>

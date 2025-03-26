@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_list/app_colors.dart';
+import 'package:mind_list/auth_screens/login_screen/login_screen.dart';
+import 'package:mind_list/auth_screens/signup_screen/signup_screen.dart';
+import 'package:mind_list/auth_screens/widgets/auth_button.dart';
 import 'package:mind_list/bottom_sheets/language_bottom_sheet.dart';
-import 'package:mind_list/login_screen/login_screen.dart';
-import 'package:mind_list/signup_screen/signup_screen.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   static const routeName = "OnBoardingScreen";
@@ -36,36 +37,28 @@ class OnBoardingScreen extends StatelessWidget {
                     width: width * 0.09,
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () {
+                AuthenticationButton(
+                    buttonLabel: "login".tr(),
+                    buttonLabelStyle: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: Colors.white),
+                    backGroundColor: Colors.black,
+                    borderColor: Colors.black,
+                    buttonFunction: (){
                       Navigator.pushNamed(context, LoginScreen.routeName);
-                    },
-                    child: Text("login".tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelSmall!
-                            .copyWith(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: Colors.black)))),
-                ElevatedButton(
-                    onPressed: () {
+                    }),
+                AuthenticationButton(
+                    buttonLabel: "sign_up".tr(),
+                    buttonLabelStyle: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: AppColors.blackColor),
+                    backGroundColor: AppColors.whiteColor,
+                    borderColor: Colors.black,
+                    buttonFunction: (){
                       Navigator.pushNamed(context, SignupScreen.routeName);
-                    },
-                    child: Text(
-                      "sign_up".tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelSmall!
-                          .copyWith(color: AppColors.blackColor),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.whiteColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: Colors.black)))),
+                    }),
                 Padding(
                   padding:  EdgeInsets.symmetric(vertical: height*0.05),
                   child: InkWell(

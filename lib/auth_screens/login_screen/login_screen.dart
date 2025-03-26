@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_list/app_colors.dart';
 import 'package:mind_list/app_constans.dart';
+import 'package:mind_list/auth_screens/on_boarding_screen/on_boarding_screen.dart';
+import 'package:mind_list/auth_screens/signup_screen/signup_screen.dart';
+import 'package:mind_list/auth_screens/widgets/auth_button.dart';
 import 'package:mind_list/firebase/firebase_functions.dart';
 import 'package:mind_list/home_screen.dart';
-import 'package:mind_list/login_screen/login_screen.dart';
-import 'package:mind_list/on_boarding_screen/on_boarding_screen.dart';
 import 'package:mind_list/providers/auth_provider.dart';
-import 'package:mind_list/signup_screen/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -39,7 +39,11 @@ class _SignupScreenState extends State<LoginScreen> {
         // title: Text("signup"),
         backgroundColor: AppColors.whiteColor,
         leading: InkWell(
-          onTap: () => Navigator.pushNamedAndRemoveUntil(context,OnBoardingScreen.routeName,(route) => false,),
+          onTap: () => Navigator.pushNamedAndRemoveUntil(
+            context,
+            OnBoardingScreen.routeName,
+            (route) => false,
+          ),
           child: Container(
             margin: EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -160,38 +164,23 @@ class _SignupScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 10),
-              //   child: Text(
-              //     "Forgot Password?",
-              //     textAlign: TextAlign.end,
-              //     style: Theme.of(context)
-              //         .textTheme
-              //         .bodySmall!
-              //         .copyWith(color: AppColors.blackColor),
-              //   ),
-              // ),
               Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 20),
-                child: ElevatedButton(
-                    onPressed: () {
-                      logIn(context);
-                    },
-                    child: Text("login".tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelSmall!
-                            .copyWith(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: Colors.black)))),
-              ),
+                  padding: const EdgeInsets.only(top: 10, bottom: 20),
+                  child: AuthenticationButton(
+                      buttonLabel: "login".tr(),
+                      buttonLabelStyle: Theme.of(context)
+                          .textTheme
+                          .labelSmall!
+                          .copyWith(color: Colors.white),
+                      backGroundColor: Colors.black,
+                      borderColor: Colors.black,
+                      buttonFunction: () {
+                        logIn(context);
+                      })),
               Center(
                 child: InkWell(
-                  onTap: () =>
-                      Navigator.pushReplacementNamed(context, SignupScreen.routeName),
+                  onTap: () => Navigator.pushReplacementNamed(
+                      context, SignupScreen.routeName),
                   child: RichText(
                       text: TextSpan(children: [
                     TextSpan(
@@ -218,7 +207,8 @@ class _SignupScreenState extends State<LoginScreen> {
           emailAddress: emailController.text,
           password: passwordController.text,
           onSuccess: (userData) {
-            var autProvider=Provider.of<AuthenticationProvider>(context, listen: false);
+            var autProvider =
+                Provider.of<AuthenticationProvider>(context, listen: false);
             autProvider.initUser();
             scaffoldMessengerKey.currentState?.showSnackBar(
               SnackBar(
