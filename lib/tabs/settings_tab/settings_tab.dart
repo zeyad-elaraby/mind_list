@@ -104,28 +104,53 @@ class SettingsTab extends StatelessWidget {
                 ),
               ),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 50),
-                child: Column(
-                  children: [
-                    Text(
-                      "sign out",
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          "sign out",
+                        ),
+                        InkWell(
+                          onTap: () => confirmationDialog(context),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/logout_image.png"))),
+                          ),
+                        )
+                      ],
                     ),
-                    InkWell(
-                      onTap: () => confirmationDialog(context),
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/logout_image.png"))),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          "delete account",
+                        ),
+                        InkWell(
+                          onTap: () => signOutDialog(context),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/delete_account.png"))),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               ),
             )
           ],
@@ -154,4 +179,93 @@ class SettingsTab extends StatelessWidget {
               },
             ));
   }
-}
+  void signOutDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => ConfirmationDialog(
+          title: "Confirm Delete Account",
+          description: 'Are you sure you want to delete your account?',
+          leftButtonText: "Cancel",
+          leftButtonColor: Colors.blue[300]!,
+          rightButtonTex: "Delete",
+          rightButtonColor: Colors.red[300]!,
+          onConfirmed: () async {
+            try {
+              User? user = FirebaseAuth.instance.currentUser;
+
+              if (user == null) {
+                return; // No user is logged in
+              }
+
+              // Get the user's last sign-in method
+              List<UserInfo> providerData = user.providerData;
+              String? email = user.email;
+
+              // If the user signed in with email & password, reauthenticate
+              if (providerData.any((info) => info.providerId == "password") &&
+                  email != null) {
+                String? password = await showPasswordPrompt(context);
+
+                if (password == null) return; // User canceled reauthentication
+
+                AuthCredential credential =
+                EmailAuthProvider.credential(email: email, password: password);
+                await user.reauthenticateWithCredential(credential);
+              }
+
+              // Now delete the account
+              await user.delete();
+
+              // Navigate to OnBoardingScreen
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                OnBoardingScreen.routeName,
+                    (route) => false,
+              );
+            } catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Error: ${e.toString()}")),
+              );
+            }
+          },
+        ));
+  }
+
+// Helper function to show password prompt for reauthentication
+  Future<String?> showPasswordPrompt(BuildContext context) async {
+    String? password;
+    await showDialog(
+        context: context,
+        builder: (context) {
+          TextEditingController controller = TextEditingController();
+          return AlertDialog(
+            backgroundColor: Colors.grey[900],
+            title: Text("Reauthenticate", style: Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(color: Colors.white)),
+            content: TextField(
+              controller: controller,
+              obscureText: true,
+              decoration: InputDecoration(labelText: "Enter your password"),
+            ),
+            actions: [
+
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text("Cancel",style: TextStyle(fontSize: 20,color: Colors.blue[300]!))),
+                  TextButton(
+                      onPressed: () {
+                        password = controller.text;
+                        Navigator.pop(context);
+                      },
+                      child: Text("Confirm",style: TextStyle(fontSize: 20,color: Colors.red[300]!),)),],
+              ),
+
+            ],
+          );
+        });
+    return password;
+  }}
