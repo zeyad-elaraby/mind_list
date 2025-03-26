@@ -113,7 +113,7 @@ class SettingsTab extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          "sign out",
+                          "sign_out".tr(),
                         ),
                         InkWell(
                           onTap: () => confirmationDialog(context),
@@ -134,7 +134,7 @@ class SettingsTab extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          "delete account",
+                          "delete_account".tr(),
                         ),
                         InkWell(
                           onTap: () => signOutDialog(context),
@@ -163,11 +163,11 @@ class SettingsTab extends StatelessWidget {
     showDialog(
         context: context,
         builder: (context) => ConfirmationDialog(
-              title: "confirm sign out",
-              description: 'Are you sure you want to sign out?',
-              leftButtonText: "cancle",
+              title: "confirm_sign_out".tr(),
+              description: 'are_you_sure_you_want_to_sign_out'.tr(),
+              leftButtonText: "cancle".tr(),
               leftButtonColor: Colors.blue[300]!,
-              rightButtonTex: "sign out",
+              rightButtonTex: "sign_out".tr(),
               rightButtonColor: Colors.red[300]!,
               onConfirmed: () {
                 FirebaseAuth.instance.signOut();
@@ -183,11 +183,11 @@ class SettingsTab extends StatelessWidget {
     showDialog(
         context: context,
         builder: (context) => ConfirmationDialog(
-          title: "Confirm Delete Account",
-          description: 'Are you sure you want to delete your account?',
-          leftButtonText: "Cancel",
+          title: "confirm_delete_account".tr(),
+          description: 'are_you_sure_you_want_to_delete_your_account'.tr(),
+          leftButtonText: "cancle".tr(),
           leftButtonColor: Colors.blue[300]!,
-          rightButtonTex: "Delete",
+          rightButtonTex: "delete".tr(),
           rightButtonColor: Colors.red[300]!,
           onConfirmed: () async {
             try {
@@ -240,14 +240,14 @@ class SettingsTab extends StatelessWidget {
           TextEditingController controller = TextEditingController();
           return AlertDialog(
             backgroundColor: Colors.grey[900],
-            title: Text("Reauthenticate", style: Theme.of(context)
+            title: Text("reauthenticate".tr(), style: Theme.of(context)
                 .textTheme
                 .labelMedium!
                 .copyWith(color: Colors.white)),
             content: TextField(
               controller: controller,
               obscureText: true,
-              decoration: InputDecoration(labelText: "Enter your password"),
+              decoration: InputDecoration(labelText: "enter_your_password".tr()),
             ),
             actions: [
 
@@ -255,13 +255,13 @@ class SettingsTab extends StatelessWidget {
                 children: [
                   TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text("Cancel",style: TextStyle(fontSize: 20,color: Colors.blue[300]!))),
+                      child: Text("cancle".tr(),style: TextStyle(fontSize: 20,color: Colors.blue[300]!))),
                   TextButton(
                       onPressed: () {
                         password = controller.text;
                         Navigator.pop(context);
                       },
-                      child: Text("Confirm",style: TextStyle(fontSize: 20,color: Colors.red[300]!),)),],
+                      child: Text("confirm".tr(),style: TextStyle(fontSize: 20,color: Colors.red[300]!),)),],
               ),
 
             ],
